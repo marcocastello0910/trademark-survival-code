@@ -86,6 +86,16 @@ trademark-count-based innovation indicators differ between goods and services
 once the differential survival of registered marks is accounted for?* Master's
 thesis.
 
+## Use of AI assistance
+
+The research design, the methodological decisions and the interpretation of the
+results are the author's. The code in this repository was written with the
+assistance of an AI coding assistant (Claude, by Anthropic), working under the
+author's direction; every script was reviewed by the author and every result it
+produces was checked against the analysis reported in the thesis. The commit
+history records this: commits carry a `Co-Authored-By` trailer where the
+assistant contributed to the code.
+
 ## Licence
 
 The code in this repository is released under the MIT Licence (see `LICENSE`).
