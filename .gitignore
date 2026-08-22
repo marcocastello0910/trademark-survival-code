@@ -1,0 +1,18 @@
+# Data are not redistributed here: see the data-availability table in README.md.
+# The public sources are downloadable; the Compustat extract is licensed.
+data_external/
+output/
+*.dta
+*.csv
+*.xlsx
+*.parquet
+
+# Stata and R working files
+*.log
+*.smcl
+.Rhistory
+.RData
+.Rproj.user/
+
+# macOS
+.DS_Store
