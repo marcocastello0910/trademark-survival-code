@@ -1,8 +1,7 @@
-# Trademark survival and the reliability of trademark-count innovation indicators
+# Measuring Innovation with Trademarks: Survival, Bias, and the Reliability of Trademark-Based Indicators
 
-Replication code for the master's thesis *To what extent does the reliability of
-trademark-count-based innovation indicators differ between goods and services
-once the differential survival of registered marks is accounted for?*
+Replication code for the master's thesis *Measuring Innovation with Trademarks:
+Survival, Bias, and the Reliability of Trademark-Based Indicators*.
 
 The analysis uses the full United States trademark registry — 3,002,919 marks
 registered between 1995 and 2015, followed to March 2024 — to measure how
@@ -81,10 +80,8 @@ routines first, then the R routines.
 
 ## Citation
 
-Castello, M. (2026). *To what extent does the reliability of
-trademark-count-based innovation indicators differ between goods and services
-once the differential survival of registered marks is accounted for?* Master's
-thesis.
+Castello, M. (2026). *Measuring Innovation with Trademarks: Survival, Bias, and
+the Reliability of Trademark-Based Indicators*. Master's thesis.
 
 ## Use of AI assistance
 
