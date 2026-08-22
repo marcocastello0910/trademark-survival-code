@@ -1,6 +1,6 @@
 suppressPackageStartupMessages({ library(dplyr) })
 
-ROOT <- "/Users/marco/Desktop/Tesi magistrale"
+ROOT <- Sys.getenv("THESIS_ROOT", unset = ".")
 OUT  <- file.path(ROOT, "output")
 MINMARKS <- 5
 set.seed(1)

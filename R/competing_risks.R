@@ -3,7 +3,7 @@ suppressPackageStartupMessages({
   library(ggplot2); library(scales); library(knitr)
 })
 
-ROOT   <- "/Users/marco/Desktop/Tesi magistrale"
+ROOT   <- Sys.getenv("THESIS_ROOT", unset = ".")
 OUT    <- file.path(ROOT, "output")
 CUTOFF <- as.Date("2024-03-31")
 H0     <- 7

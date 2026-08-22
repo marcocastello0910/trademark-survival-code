@@ -1,6 +1,6 @@
 suppressPackageStartupMessages({ library(haven); library(dplyr); library(ggplot2); library(knitr) })
 
-ROOT   <- "/Users/marco/Desktop/Tesi magistrale"
+ROOT   <- Sys.getenv("THESIS_ROOT", unset = ".")
 OUT    <- file.path(ROOT, "output")
 CUTOFF <- as.Date("2024-03-31")
 H0     <- 7          # operational primary horizon (Section 8 due at year 6, resolved ~7)

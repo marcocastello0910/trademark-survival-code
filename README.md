@@ -62,9 +62,20 @@ repository, for reasons that differ by source.
 | **ALP trademark concordance** (Zolas, Lybbert & Bhattacharyya) | Freely distributed for research by the World Intellectual Property Organization. Check the terms on the download page before mirroring it. | WIPO Economic Research Working Paper series |
 | **Compustat North America (Fundamentals Annual)** | **Licensed. Cannot be redistributed in any form.** Accessed through Wharton Research Data Services under an institutional subscription. The variables used are `gvkey`, `conm`, `cusip`, `naics`, `xrd`, `revt`, `at`, `emp`, for fiscal years 2005–2018. | WRDS, subscription required |
 
-To reproduce the analysis, download the three public sources into
-`data_external/`, obtain the Compustat extract from WRDS with the variables
-listed above, and run the scripts in the order given.
+## Running the code
+
+Every script reads the project root from the `THESIS_ROOT` environment
+variable and falls back to the current directory, so nothing needs editing:
+
+```
+export THESIS_ROOT=/path/to/project
+```
+
+The project directory is expected to contain `data_external/` for the
+downloaded sources and `output/` for the results. To reproduce the analysis,
+download the three public sources into `data_external/`, obtain the Compustat
+extract from WRDS with the variables listed above, and run the scripts in the
+order given: the five Stata routines first, then the R routines.
 
 ## Citation
 

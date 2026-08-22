@@ -2,7 +2,7 @@ suppressPackageStartupMessages({
   library(dplyr); library(ggplot2); library(sandwich)
 })
 
-ROOT <- "/Users/marco/Desktop/Tesi magistrale"
+ROOT <- Sys.getenv("THESIS_ROOT", unset = ".")
 OUT  <- file.path(ROOT, "output")
 MINMARKS <- 5      # below this, a firm's S is 0/1 noise rather than a rate
 B <- 2000

@@ -3,7 +3,7 @@ suppressPackageStartupMessages({
   library(ggplot2); library(broom); library(knitr); library(scales)
 })
 
-ROOT   <- "/Users/marco/Desktop/Tesi magistrale"
+ROOT   <- Sys.getenv("THESIS_ROOT", unset = ".")
 OUT    <- file.path(ROOT, "output")
 CUTOFF <- as.Date("2024-03-31")
 COL    <- c("Goods" = "#185FA5", "Services" = "#D85A30")   # consistent palette across figures

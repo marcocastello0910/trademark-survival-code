@@ -3,7 +3,8 @@ clear all
 set more off
 set linesize 120
 
-global root "/Users/marco/Desktop/Tesi magistrale"
+global root : environment THESIS_ROOT
+if "$root" == "" global root "."
 global out  "$root/output"
 capture mkdir "$out"
 

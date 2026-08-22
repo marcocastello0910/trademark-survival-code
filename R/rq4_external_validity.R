@@ -3,7 +3,7 @@ suppressPackageStartupMessages({
   library(ggplot2); library(knitr)
 })
 
-ROOT <- "/Users/marco/Desktop/Tesi magistrale"
+ROOT <- Sys.getenv("THESIS_ROOT", unset = ".")
 OUT  <- file.path(ROOT, "output")
 EXT  <- file.path(ROOT, "data_external")
 ALP  <- file.path(EXT, "ALP_Trademark_v3", "NAICS_2007")

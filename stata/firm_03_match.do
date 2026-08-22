@@ -2,7 +2,8 @@ clear all
 set more off
 version 17
 
-local ROOT "/Users/marco/Desktop/Tesi magistrale"
+local ROOT : environment THESIS_ROOT
+if "`ROOT'" == "" local ROOT "."
 cd "`ROOT'"
 do "firm_namekey.do"
 
