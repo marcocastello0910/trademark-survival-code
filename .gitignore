@@ -5,6 +5,12 @@ output/
 *.dta
 *.csv
 *.xlsx
+
+# ...except the two NSF BERD tables, which are a US federal government work
+# and small enough to pin here, so the exact release used stays reproducible.
+!data/
+!data/nsf25354-tab057.xlsx
+!data/nsf25354-tab058.xlsx
 *.parquet
 
 # Stata and R working files

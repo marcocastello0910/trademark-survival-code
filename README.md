@@ -52,15 +52,16 @@ R packages used: `haven`, `dplyr`, `tidyr`, `readxl`, `survival`, `ggplot2`,
 
 ## Data availability
 
-The code is released here in full. The data are not redistributed in this
-repository, for reasons that differ by source.
+The code is released here in full. Of the four data sources, only the two NSF
+tables are small enough and free enough of restrictions to be included; the
+others are documented and linked.
 
 | Source | Status | Where to get it |
 |---|---|---|
-| **USPTO Trademark Case Files Dataset** | Public. A work of the United States federal government, distributed openly by the USPTO Office of the Chief Economist. Not redistributed here only because the files are far too large for a code repository (the application file is 2.2 GB and the owner file 3.1 GB). | USPTO Office of the Chief Economist, Economic Research Datasets |
-| **NSF BERD survey, 2023 release** (domestic R&D by industry, Table 58; worldwide R&D, Table 57) | Public. A work of the United States federal government, published by the National Center for Science and Engineering Statistics. | NSF NCSES, publication `nsf25354` |
-| **ALP trademark concordance** (Zolas, Lybbert & Bhattacharyya) | Freely distributed for research by the World Intellectual Property Organization. Check the terms on the download page before mirroring it. | WIPO Economic Research Working Paper series |
-| **Compustat North America (Fundamentals Annual)** | **Licensed. Cannot be redistributed in any form.** Accessed through Wharton Research Data Services under an institutional subscription. The variables used are `gvkey`, `conm`, `cusip`, `naics`, `xrd`, `revt`, `at`, `emp`, for fiscal years 2005–2018. | WRDS, subscription required |
+| **NSF BERD survey, 2023 release** — domestic R&D by industry (Table 58) and worldwide R&D (Table 57) | **Included**, in `data/`. A work of the United States federal government, published by the National Center for Science and Engineering Statistics. The two files are pinned here because NSF revises its tables between releases, so the exact release used has to travel with the code. | NSF NCSES, publication `nsf25354` |
+| **USPTO Trademark Case Files Dataset** | Not included. Public — a work of the United States federal government, distributed openly by the USPTO Office of the Chief Economist — but far too large for a code repository: the application file is 2.2 GB and the owner file 3.1 GB. `prepare_data.do` rebuilds the analysis sample from them. | USPTO Office of the Chief Economist, Economic Research Datasets |
+| **ALP trademark concordance** (Zolas, Lybbert & Bhattacharyya) | Not included. Freely distributed for research by the World Intellectual Property Organization; check the terms on the download page before mirroring it. The analysis uses the backward, NAICS-to-Nice direction at the two-digit and three-digit levels (`NAICS_07_2_to_nice.txt`, `NAICS_07_3_to_nice.txt`). | WIPO Economic Research Working Paper series |
+| **Compustat North America (Fundamentals Annual)** | **Not included: licensed, and it cannot be redistributed in any form.** Accessed through Wharton Research Data Services under an institutional subscription. The variables used are `gvkey`, `conm`, `cusip`, `naics`, `xrd`, `revt`, `at`, `emp`, for fiscal years 2005–2018. | WRDS, subscription required |
 
 ## Running the code
 
@@ -71,11 +72,12 @@ variable and falls back to the current directory, so nothing needs editing:
 export THESIS_ROOT=/path/to/project
 ```
 
-The project directory is expected to contain `data_external/` for the
-downloaded sources and `output/` for the results. To reproduce the analysis,
-download the three public sources into `data_external/`, obtain the Compustat
-extract from WRDS with the variables listed above, and run the scripts in the
-order given: the five Stata routines first, then the R routines.
+The project directory is expected to contain `data_external/` for the source
+data and `output/` for the results. To reproduce the analysis, copy the two NSF
+tables from `data/` into `data_external/`, download the USPTO dataset and the
+ALP concordance there as well, obtain the Compustat extract from WRDS with the
+variables listed above, and run the scripts in the order given: the five Stata
+routines first, then the R routines.
 
 ## Citation
 
