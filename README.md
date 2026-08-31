@@ -34,6 +34,7 @@ step produces and writes its own tables and figures.
 
 | Script | What it produces |
 |---|---|
+| `sample_composition.R` | Size of the raw case file and the composition of the analysis sample (Table A1). |
 | `build_survival.R` | Kaplan–Meier curves, log-rank test, Cox model (Figures 1 and 3; Tables B2–B5). |
 | `survival_discrete.R` | Discrete-time hazards at the maintenance milestones, pooled complementary log-log model (Figure 2; Tables B6–B8). |
 | `robustness.R` | Sector gap across measurement horizons and under the alternative goods/services rule (Figure 4; Table B9). |

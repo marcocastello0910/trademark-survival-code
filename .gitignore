@@ -22,3 +22,7 @@ output/
 
 # macOS
 .DS_Store
+
+# GitHub account recovery codes: credentials, never to be committed.
+github-recovery-codes.txt
+*recovery-codes*
