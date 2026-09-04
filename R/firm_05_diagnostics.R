@@ -12,9 +12,6 @@ d_sp <- function(df) cor(df$adj, df$rd, method = "spearman") -
                      cor(df$N_raw, df$rd, method = "spearman")
 
 # --- (1) how much of the drop is pure measurement noise? --------------------
-# Permuting S across firms destroys any link between durability and R&D while
-# keeping the distribution of S intact. The resulting change in correlation is
-# what the adjustment costs when S carries *no* information at all.
 cat("=== (1) Permutation benchmark: what if S were pure noise? ===\n")
 perm <- do.call(rbind, lapply(c("All", "Goods", "Services"), function(s) {
   d <- if (s == "All") f else filter(f, Sector == s)
@@ -25,15 +22,11 @@ perm <- do.call(rbind, lapply(c("All", "Goods", "Services"), function(s) {
   data.frame(Sample = s, firms = nrow(d), observed = obs,
              noise_mean = mean(nul), noise_lo = quantile(nul, .025),
              noise_hi = quantile(nul, .975),
-             # share of permutations giving a change at least as good as observed
              p_better = mean(nul >= obs))
 }))
 print(perm, row.names = FALSE, digits = 3)
-cat("\n  Reading: if 'observed' sits inside the noise band, the adjustment\n",
-    " behaves exactly as if durability carried no information about R&D.\n")
 
 # --- (2) does the class-level result reappear on aggregation? ---------------
-# Same firms, same marks, same R&D - only the unit of analysis changes.
 cat("\n=== (2) Aggregating the SAME firms to industries ===\n")
 f$naics3 <- substr(as.character(f$naics), 1, 3)
 f$naics2 <- substr(as.character(f$naics), 1, 2)
@@ -63,8 +56,6 @@ agg_test <- function(df, key, minfirms = 3) {
 agg <- rbind(agg_test(f, "naics2"), agg_test(f, "naics3"))
 print(agg, row.names = FALSE, digits = 3)
 
-# The aggregated statistic is built from the same firms, so its uncertainty is
-# firm sampling uncertainty: resample firms, rebuild the industries, recompute.
 cat("\n  Bootstrap over firms, propagated through the aggregation (95% CI on d_sp):\n")
 boot_agg <- function(key, sample_name, B = 600) {
   n <- nrow(f)
@@ -118,8 +109,9 @@ print(geo, row.names = FALSE, digits = 3)
 write.csv(perm, file.path(OUT, "tab_rq4_firm_perm.csv"), row.names = FALSE)
 write.csv(rbind(agg, firmlvl), file.path(OUT, "tab_rq4_firm_agg.csv"), row.names = FALSE)
 write.csv(stab, file.path(OUT, "tab_rq4_firm_signstability.csv"), row.names = FALSE)
+write.csv(geo, file.path(OUT, "tab_rq4_firm_usonly.csv"), row.names = FALSE)
 
-# --- results as HTML, for the thesis attachments ------------------------------
+# --- results as HTML ----------------------------------------------------------
 tab_perm <- with(perm, data.frame(
   Sample, Firms = firms,
   `Observed change` = sprintf("%+.3f", observed),

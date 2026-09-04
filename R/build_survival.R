@@ -43,6 +43,15 @@ lg  <- glm(dead10 ~ is_service * std_char + is_service * n_classes +
 cat(sprintf("Log-rank chi2 = %.1f (df=%d)\n", lr$chisq, length(lr$n) - 1))
 cat("Cox HR:\n"); print(round(exp(coef(cox)), 4))
 
+lr_df <- length(lr$n) - 1
+t_lr  <- data.frame(Test = "Log-rank, goods vs services",
+                    Statistic = "chi-squared",
+                    Value = round(lr$chisq, 1),
+                    df = lr_df,
+                    p = format.pval(pchisq(lr$chisq, lr_df, lower.tail = FALSE),
+                                    eps = 0.001))
+write.csv(t_lr, file.path(OUT, "tab_base_logrank.csv"), row.names = FALSE)
+
 # =============================================================================
 # FIGURES
 # =============================================================================

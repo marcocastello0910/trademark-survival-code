@@ -21,6 +21,21 @@ d <- read_dta(file.path(OUT, "tm_survival.dta")) |>
 
 cat("Distribution of exit cause:\n"); print(table(d$cause))
 
+n_cause <- table(d$cause)
+n_canc  <- n_cause[["maintenance"]] + n_cause[["other"]]
+t_cause <- data.frame(Outcome = c("Censored at the cut-off",
+                                  "Cancelled: non-maintenance (Section 8, code 2)",
+                                  "Cancelled: other causes",
+                                  "Cancelled: all causes"),
+                      Marks = c(n_cause[["censored"]], n_cause[["maintenance"]],
+                                n_cause[["other"]], n_canc),
+                      `% of cancellations` = c(NA,
+                                round(100 * n_cause[["maintenance"]] / n_canc, 1),
+                                round(100 * n_cause[["other"]]       / n_canc, 1),
+                                100),
+                      check.names = FALSE)
+write.csv(t_cause, file.path(OUT, "tab_cr_cause.csv"), row.names = FALSE)
+
 # =============================================================================
 # (1) Competing-risks CIF (Aalen-Johansen), goods vs services
 # =============================================================================
@@ -60,7 +75,6 @@ writeLines(kable(cif_h, format = "html"), file.path(OUT, "tab_cif.html"))
 
 # =============================================================================
 # (2) Decomposition of the 7-year gap: all causes = maintenance + other
-#     (at fixed h, with age_obs>=h, these are exact proportions -> binomial CI)
 # =============================================================================
 dh <- d |> filter(age_obs >= H0) |>
   mutate(a = as.integer(cancelled & t_years <= H0),                          # all causes
@@ -114,3 +128,10 @@ cat(sprintf("  Goods    : naive KM %.3f  |  correct CIF %.3f  (overstatement %.3
             naive7[1], cif7[1], naive7[1]-cif7[1]))
 cat(sprintf("  Services : naive KM %.3f  |  correct CIF %.3f  (overstatement %.3f)\n",
             naive7[2], cif7[2], naive7[2]-cif7[2]))
+
+t_naive <- data.frame(Group = c("Goods", "Services"),
+                      `Naive KM` = round(naive7, 4),
+                      `Competing-risks CIF` = round(cif7, 4),
+                      `Overstatement (pp)` = round((naive7 - cif7) * 100, 3),
+                      check.names = FALSE)
+write.csv(t_naive, file.path(OUT, "tab_cr_naive_km.csv"), row.names = FALSE)

@@ -31,6 +31,13 @@ d <- read_dta(file.path(OUT, "tm_survival.dta")) |>
 
 agg_over <- 100 * (mean(d$surv[d$is_service == 0]) / mean(d$surv[d$is_service == 1]) - 1)
 
+t_agg <- data.frame(Horizon = H,
+                    `Goods S(h)`    = round(mean(d$surv[d$is_service == 0]), 4),
+                    `Services S(h)` = round(mean(d$surv[d$is_service == 1]), 4),
+                    `Ratio overstated (%)` = round(agg_over, 1),
+                    check.names = FALSE)
+write.csv(t_agg, file.path(OUT, "tab_rq3_aggregate.csv"), row.names = FALSE)
+
 # =============================================================================
 # (A) COHORT EVOLUTION
 # =============================================================================
@@ -54,6 +61,13 @@ ggsave(file.path(OUT, "fig_rq3_cohort.pdf"), figA, width = 9, height = 5)
 tabA <- coh |> transmute(`Cohort` = reg_year, `Goods S(8)` = round(S0, 3),
                          `Services S(8)` = round(S1, 3), `Ratio overstated (%)` = round(overstated, 1))
 write.csv(tabA, file.path(OUT, "tab_rq3_cohort.csv"), row.names = FALSE)
+
+tabT <- d |> filter(cancelled, reg_cancel_cd == "2", reg_year >= 1995, reg_year <= 2015) |>
+  group_by(reg_year) |>
+  summarise(`Median years to cancellation` = round(median(t_years), 2),
+            `Section 8 cancellations` = n(), .groups = "drop") |>
+  rename(Cohort = reg_year)
+write.csv(tabT, file.path(OUT, "tab_rq3_s8_timing.csv"), row.names = FALSE)
 
 # =============================================================================
 # (B) CLASS DISTRIBUTION

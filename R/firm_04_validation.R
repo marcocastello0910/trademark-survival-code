@@ -14,9 +14,7 @@ f0 <- f0 |> filter(!is.na(rd), rd > 0, N_raw > 0)
 cat(sprintf("matched firms with R&D > 0: %d\n", nrow(f0)))
 
 # --- 1. how the sample and the result move with the minimum mark count -------
-# A firm whose marks all died has adj = 0, so the log correlation uses log(1+x)
-# rather than log(x): dropping those firms would select exactly the least
-# durable ones out of the sample, which is the opposite of what we want.
+# log1p, not log: a firm whose marks all died has adj = 0.
 cor_set <- function(df) c(
   sp_raw = cor(df$N_raw, df$rd, method = "spearman"),
   sp_adj = cor(df$adj,   df$rd, method = "spearman"),
@@ -43,7 +41,6 @@ f <- f0 |> filter(N_raw >= MINMARKS)
 cat(sprintf("\n=== PRIMARY (N_raw >= %d): %d firms | goods %d | services %d ===\n",
             MINMARKS, nrow(f), sum(f$Sector == "Goods"), sum(f$Sector == "Services")))
 
-# Firms are independent units, so this is an ordinary (unclustered) bootstrap.
 boot_delta <- function(df, B = 2000) {
   n <- nrow(df)
   d <- replicate(B, {
@@ -68,8 +65,6 @@ main <- do.call(rbind, lapply(c("All", "Goods", "Services"), function(s) {
 print(main, row.names = FALSE, digits = 3)
 
 # --- 3. does durability survive a size control? ------------------------------
-# Firm size drives both trademark counts and R&D. If durability carries
-# innovation-relevant information beyond scale, S should still enter here.
 cat("\n=== Size-controlled regression: log(rd) ~ log(N_raw) + log(S) + log(assets) ===\n")
 size <- do.call(rbind, lapply(c("All", "Goods", "Services"), function(s) {
   d <- if (s == "All") f else filter(f, Sector == s)
@@ -109,7 +104,13 @@ ggsave(file.path(OUT, "fig_rq4_firm.pdf"), fig, width = 10, height = 3.6)
 write.csv(main, file.path(OUT, "tab_rq4_firm.csv"), row.names = FALSE)
 write.csv(sens, file.path(OUT, "tab_rq4_firm_sensitivity.csv"), row.names = FALSE)
 
-# --- 5. results as HTML, for the thesis attachments --------------------------
+# BIGPORT cuts on portfolio size only; the analysis keeps MINMARKS.
+BIGPORT <- 300
+durab <- f0 |> filter(N_raw >= BIGPORT) |> arrange(desc(S)) |>
+  transmute(Company = conm, Sector, `S(8)` = round(S, 3), N = N_raw)
+write.csv(durab, file.path(OUT, "tab_rq4_firm_durability.csv"), row.names = FALSE)
+
+# --- 5. results as HTML ------------------------------------------------------
 r3 <- function(d, k = 3) {
   num <- vapply(d, is.numeric, logical(1))
   d[num] <- lapply(d[num], round, k)

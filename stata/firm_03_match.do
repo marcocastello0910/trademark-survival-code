@@ -72,7 +72,6 @@ drop _tag
 gen byte is_goods = (is_service == 0) if !missing(is_service)
 gen byte _one = 1
 
-* Country is used only to separate US from foreign parents.
 gen byte foreign = (own_addr_country_cd != "US")
 
 collapse (sum)    N_raw = _one                          ///
@@ -100,19 +99,21 @@ export delimited using "output/firm_panel.csv", replace   // consumed by the R a
 * --- how the sample thins with a minimum mark count --------------------------
 display as text _n "=== usable sample by minimum trademark count (R&D > 0) ==="
 display as text "  min N    firms    goods  services"
+* !missing(rd) is required: Stata orders missing above any number, so a bare
+* "rd > 0" would also count the firms that report no R&D at all
 foreach k in 1 3 5 10 20 50 {
-    quietly count if rd > 0 & N_raw >= `k'
+    quietly count if rd > 0 & !missing(rd) & N_raw >= `k'
     local a = r(N)
-    quietly count if rd > 0 & N_raw >= `k' & Sector == "Goods"
+    quietly count if rd > 0 & !missing(rd) & N_raw >= `k' & Sector == "Goods"
     local g = r(N)
-    quietly count if rd > 0 & N_raw >= `k' & Sector == "Services"
+    quietly count if rd > 0 & !missing(rd) & N_raw >= `k' & Sector == "Services"
     local s = r(N)
     display as text "  " %5.0f `k' "    " as result %5.0f `a' "    " %5.0f `g' "     " %5.0f `s'
 }
 
 display as text _n "=== largest matched firms (sanity check) ==="
 gsort -N_raw
-list conm N_raw S adj goods_share rd Sector if rd > 0 in 1/15, ///
+list conm N_raw S adj goods_share rd Sector if rd > 0 & !missing(rd) in 1/15, ///
     noobs sep(0) abbreviate(12)
 
 log close diag

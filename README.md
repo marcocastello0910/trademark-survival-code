@@ -35,17 +35,17 @@ step produces and writes its own tables and figures.
 | Script | What it produces |
 |---|---|
 | `sample_composition.R` | Size of the raw case file and the composition of the analysis sample (Table A1). |
-| `build_survival.R` | Kaplan–Meier curves, log-rank test, Cox model (Figures 1 and 3; Tables B2–B5). |
-| `survival_discrete.R` | Discrete-time hazards at the maintenance milestones, pooled complementary log-log model (Figure 2; Tables B6–B8). |
-| `robustness.R` | Sector gap across measurement horizons and under the alternative goods/services rule (Figure 4; Table B9). |
-| `competing_risks.R` | Cumulative incidence by cause; decomposition of the gap (Figures 5–6; Tables B10–B11). |
-| `rq2_indicator.R` | Raw versus survival-adjusted counts and the resulting bias (Figures 7–8; Table B12). |
-| `rq3_distribution.R` | Bias by cohort and by Nice class; class-by-cohort heat map (Figures 9–11; Tables B13–B14). |
-| `rq4_materiality.R` | League-table reordering and the services-share trend (Figures 12–13; Tables B15–B16). |
-| `rq4_external_validity.R` | Class-level correlation with allocated industry R&D, worldwide robustness, mechanism (Figure 14; Tables B17–B19). |
-| `rq4_external_panel.R` | Class-by-year panel with class-cluster bootstrap and two-way fixed effects (Figure 15; Table B20). |
-| `firm_04_validation.R` | Firm-level correlation with observed company R&D (Figure 16; Tables B21–B22). |
-| `firm_05_diagnostics.R` | Permutation benchmark, the same firms at three units of analysis, sign stability, US-only robustness (Tables B23–B25). |
+| `build_survival.R` | Kaplan–Meier curves, log-rank test, Cox model (Figures 1 and 2; Tables B2–B5). |
+| `survival_discrete.R` | Discrete-time hazards at the maintenance milestones, pooled complementary log-log model (Figure 3; Table 1; Tables B6–B7). |
+| `robustness.R` | Sector gap across measurement horizons and under the alternative goods/services rule (Figure 4; Table B8). |
+| `competing_risks.R` | Cumulative incidence by cause; decomposition of the gap (Figures 5–6; Table 2; Table B9). |
+| `rq2_indicator.R` | Raw versus survival-adjusted counts and the resulting bias (Figures 7–8; Table 3; Table B10). |
+| `rq3_distribution.R` | Bias by cohort and by Nice class; class-by-cohort heat map (Figures 9–11; Table 4; Tables B11–B12). |
+| `rq4_materiality.R` | League-table reordering and the services-share trend (Figures 12–13; Table 5; Tables B13–B14). |
+| `rq4_external_validity.R` | Class-level correlation with allocated industry R&D, worldwide robustness, mechanism (Figure 14; Table 6; Tables B15–B16). |
+| `rq4_external_panel.R` | Class-by-year panel with class-cluster bootstrap and two-way fixed effects (Figure 15; Table 7; Tables B17–B19). |
+| `firm_04_validation.R` | Firm-level correlation with observed company R&D (Figure 16; Table 8; Tables B20–B21). |
+| `firm_05_diagnostics.R` | Permutation benchmark, the same firms at three units of analysis, sign stability, US-only robustness (Table 9; Tables B22–B25). |
 
 R packages used: `haven`, `dplyr`, `tidyr`, `readxl`, `survival`, `ggplot2`,
 `knitr`, `sandwich`, `boot`.

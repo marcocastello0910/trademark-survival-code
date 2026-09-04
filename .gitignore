@@ -17,6 +17,7 @@ output/
 *.log
 *.smcl
 .Rhistory
+.Rapp.history
 .RData
 .Rproj.user/
 

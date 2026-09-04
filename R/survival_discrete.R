@@ -69,6 +69,13 @@ lrt <- anova(redu, full, test = "Chisq")
 cat(sprintf("\nStaircase test (milestone x service): LRT chi2 = %.1f, p = %.2g\n",
             lrt$Deviance[2], lrt$`Pr(>Chi)`[2]))
 
+t_stair <- data.frame(Test = "Milestone x service interaction (staircase)",
+                      Statistic = "likelihood-ratio chi-squared",
+                      Value = round(lrt$Deviance[2], 1),
+                      df = lrt$Df[2],
+                      p = format.pval(lrt$`Pr(>Chi)`[2], eps = 0.001))
+write.csv(t_stair, file.path(OUT, "tab_disc_staircase.csv"), row.names = FALSE)
+
 # =============================================================================
 # FIGURE — the U-shape
 # =============================================================================

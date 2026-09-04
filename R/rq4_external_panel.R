@@ -112,6 +112,8 @@ ggsave(file.path(OUT, "fig_rq4_panel.pdf"), fig, width = 10, height = 3.6)
 
 # ---- tables -----------------------------------------------------------------
 write.csv(res, file.path(OUT, "tab_rq4_panel.csv"), row.names = FALSE)
+write.csv(res_ww, file.path(OUT, "tab_rq4_panel_ww.csv"), row.names = FALSE)
+write.csv(fe, file.path(OUT, "tab_rq4_panel_fe.csv"), row.names = FALSE)
 css <- "<style>body{font-family:sans-serif}table{border-collapse:collapse;margin-bottom:24px}
         th,td{border:1px solid #ccc;padding:5px 9px;text-align:right}th{background:#eef}
         caption{font-weight:bold;text-align:left;margin-bottom:6px;font-size:15px}</style>"

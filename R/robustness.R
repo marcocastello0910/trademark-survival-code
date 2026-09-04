@@ -37,7 +37,6 @@ B <- bind_rows(
   fail_gap(dbase, H0) |> mutate(spec = "Baseline (primary class)", block = "Goods/services rule"),
   fail_gap(dpure, H0) |> mutate(spec = "Pure marks only (no mixed)", block = "Goods/services rule"))
 
-# where do the 'mixed' marks sit?
 dmix  <- d |> filter(scheme == "Mixed", age_obs >= H0) |> mutate(fail = as.integer(cancelled & t_years <= H0))
 mix_f <- mean(dmix$fail)
 
